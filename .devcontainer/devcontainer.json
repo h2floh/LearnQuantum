@@ -21,6 +21,7 @@
 		"ms-dotnettools.csharp",
 		"quantum.quantum-devkit-vscode",
         "editorconfig.editorconfig",
+		"eamodio.gitlens"
 	],
 
 	// Use 'postCreateCommand' to run commands after the container is created.
