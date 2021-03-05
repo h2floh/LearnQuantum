@@ -2,6 +2,9 @@
 
 FROM mcr.microsoft.com/quantum/iqsharp-base:latest
 
+# Change user
+USER root
+
 # Add miniconda
 RUN cd ~ && curl -Os https://repo.anaconda.com/miniconda/Miniconda3-4.5.11-Linux-x86_64.sh && \
     /bin/bash ~/Miniconda3-4.5.11-Linux-x86_64.sh -b -p /opt/conda && \
@@ -13,23 +16,9 @@ RUN cd ~ && curl -Os https://repo.anaconda.com/miniconda/Miniconda3-4.5.11-Linux
 ENV PATH /opt/conda/bin/:$PATH
 RUN conda update conda
 
-# Install Python Q# Environment
-RUN conda update -n base -c quantum-engineering qsharp notebook
+# Install Python SDK for optimization (QIO)
+RUN /opt/conda/bin/pip install azure-quantum
 
-# [Option] Install Node.js
-# ARG INSTALL_NODE="true"
-# ARG NODE_VERSION="lts/*"
-# RUN if [ "${INSTALL_NODE}" = "true" ]; then su vscode -c "umask 0002 && . /usr/local/share/nvm/nvm.sh && nvm install ${NODE_VERSION} 2>&1"; fi
-
-# [Option] Install Azure CLI
-# ARG INSTALL_AZURE_CLI="false"
-# COPY library-scripts/azcli-debian.sh /tmp/library-scripts/
-# RUN if [ "$INSTALL_AZURE_CLI" = "true" ]; then bash /tmp/library-scripts/azcli-debian.sh; fi \
-#     && apt-get clean -y && rm -rf /var/lib/apt/lists/* /tmp/library-scripts
-
-# [Optional] Uncomment this section to install additional OS packages.
-# RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
-#     && apt-get -y install --no-install-recommends <your-package-list-here>
-
-# [Optional] Uncomment this line to install global node packages.
-# RUN su vscode -c "source /usr/local/share/nvm/nvm.sh && npm install -g <your-package-here>" 2>&1
+# Install SDK for Python host programs that call Q# operations.
+# https://docs.microsoft.com/en-us/azure/quantum/install-python-qdk?tabs=tabid-conda
+RUN conda install -n base -c quantum-engineering qsharp notebook

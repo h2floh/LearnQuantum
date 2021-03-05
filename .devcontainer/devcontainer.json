@@ -22,7 +22,8 @@
 		"quantum.quantum-devkit-vscode",
         "editorconfig.editorconfig",
 		"eamodio.gitlens",
-		"ms-toolsai.jupyter"
+		"ms-toolsai.jupyter",
+		"ms-python.python"
 	],
 
 	// Use 'postCreateCommand' to run commands after the container is created.
