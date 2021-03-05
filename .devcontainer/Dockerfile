@@ -2,6 +2,20 @@
 
 FROM mcr.microsoft.com/quantum/iqsharp-base:latest
 
+# Add miniconda
+RUN cd ~ && curl -Os https://repo.anaconda.com/miniconda/Miniconda3-4.5.11-Linux-x86_64.sh && \
+    /bin/bash ~/Miniconda3-4.5.11-Linux-x86_64.sh -b -p /opt/conda && \
+    rm ~/Miniconda3-4.5.11-Linux-x86_64.sh && \
+    /opt/conda/bin/conda clean -tipsy && \
+    ln -s /opt/conda/etc/profile.d/conda.sh /etc/profile.d/conda.sh && \
+    echo ". /opt/conda/etc/profile.d/conda.sh" >> ~/.bashrc && \
+    echo "conda activate base" >> ~/.bashrc
+ENV PATH /opt/conda/bin/:$PATH
+RUN conda update conda
+
+# Install Python Q# Environment
+RUN conda update -n base -c quantum-engineering qsharp notebook
+
 # [Option] Install Node.js
 # ARG INSTALL_NODE="true"
 # ARG NODE_VERSION="lts/*"
