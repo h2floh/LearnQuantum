@@ -17,8 +17,8 @@ ENV PATH /opt/conda/bin/:$PATH
 RUN conda update conda
 
 # Install Python SDK for optimization (QIO)
-RUN /opt/conda/bin/pip install azure-quantum
+RUN /opt/conda/bin/pip install notebook azure-quantum jupytext
 
 # Install SDK for Python host programs that call Q# operations.
 # https://docs.microsoft.com/en-us/azure/quantum/install-python-qdk?tabs=tabid-conda
-RUN conda install -n base -c quantum-engineering qsharp notebook
+RUN conda create -n qsharp -c quantum-engineering qsharp notebook
