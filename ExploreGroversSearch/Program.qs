@@ -248,7 +248,7 @@ namespace ExploreGroversSearch {
                 set answer = ResultArrayAsBoolArray(res);
             }
             ResetAll(register);
-        } until (isCorrect);
+        } until (1 == 1);
         // Convert the answer to readable format (actual graph coloring).
         let colorBits = Chunks(2, answer);
         Message("The resulting graph coloring:");
